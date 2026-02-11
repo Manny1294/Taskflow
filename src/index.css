@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+/* Global color palette from the PRD */
+:root {
+  --color-primary: #2563eb;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-bg: #ffffff;
+  --color-surface: #f9fafb;
+  --color-text: #111827;
+  --color-text-secondary: #6b7280;
+}
+
+/* Dark mode palette (for Day 6) */
+.dark {
+  --color-primary: #3b82f6;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+  --color-bg: #111827;
+  --color-surface: #1f2937;
+  --color-text: #f9fafb;
+  --color-text-secondary: #9ca3af;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
