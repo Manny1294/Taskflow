@@ -10,6 +10,7 @@
   --color-surface: #f9fafb;
   --color-text: #111827;
   --color-text-secondary: #6b7280;
+  --color-border: #e5e7eb;
 }
 
 /* Dark mode palette (for Day 6) */
@@ -22,6 +23,7 @@
   --color-surface: #1f2937;
   --color-text: #f9fafb;
   --color-text-secondary: #9ca3af;
+  --color-border: #374151;
 }
 
 body {

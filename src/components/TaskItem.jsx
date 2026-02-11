@@ -18,7 +18,7 @@ export default function TaskItem({
   }
 
   return (
-    <div className="bg-white p-4 rounded shadow space-y-3">
+    <div className="bg-[var(--color-surface)] p-4 rounded shadow space-y-3">
       <div className="flex justify-between items-center gap-3">
         {/* Task title */}
         <p className="font-medium">{task.title}</p>
@@ -26,7 +26,7 @@ export default function TaskItem({
         <div className="flex items-center gap-2">
           <button
             onClick={() => toggleComplete(task.id)}
-            className="relative group bg-green-600 text-white p-2 rounded hover:bg-green-700"
+            className="relative group bg-[var(--color-success)] text-white p-2 rounded hover:brightness-95"
             aria-label={task.status === "done" ? "Mark todo" : "Mark done"}
             title={task.status === "done" ? "Mark todo" : "Mark done"}
           >
@@ -68,7 +68,7 @@ export default function TaskItem({
 
           <button
             onClick={() => setIsEditing((prev) => !prev)}
-            className="relative group bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+            className="relative group bg-[var(--color-primary)] text-white p-2 rounded hover:brightness-95"
             aria-label={isEditing ? "Cancel edit" : "Edit task"}
             title={isEditing ? "Cancel edit" : "Edit task"}
           >
@@ -110,7 +110,7 @@ export default function TaskItem({
           {/* Delete button removes the task by id */}
           <button
             onClick={() => deleteTask(task.id)}
-            className="relative group bg-red-500 text-white p-2 rounded hover:bg-red-600"
+            className="relative group bg-[var(--color-danger)] text-white p-2 rounded hover:brightness-95"
             aria-label="Delete task"
             title="Delete task"
           >
@@ -145,7 +145,7 @@ export default function TaskItem({
         <div>
           <button
             onClick={() => setShowDetails((prev) => !prev)}
-            className="text-sm text-blue-700"
+            className="text-sm text-[var(--color-primary)]"
           >
             {showDetails ? "Hide Details" : "View Details"}
           </button>

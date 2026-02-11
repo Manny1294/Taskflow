@@ -9,7 +9,9 @@ export default function TaskList({
   return (
     <div className="space-y-3">
       {/* Empty state when there are no tasks */}
-      {tasks.length === 0 && <p className="text-gray-500">No tasks yet...</p>}
+      {tasks.length === 0 && (
+        <p className="text-[var(--color-text-secondary)]">No tasks yet...</p>
+      )}
 
       {/* Render each task */}
       {tasks.map((task) => (

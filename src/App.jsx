@@ -66,7 +66,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-[var(--color-bg)] p-6 text-[var(--color-text)]">
       {/* Header */}
       <header className="mb-6">
         <h1 className="text-3xl font-bold text-center">TaskFlow</h1>

@@ -1,6 +1,6 @@
 export default function TaskDetail({ task }) {
   return (
-    <div className="mt-3 text-sm text-gray-700 space-y-1">
+    <div className="mt-3 text-sm text-[var(--color-text-secondary)] space-y-1">
       {/* Description */}
       <p>
         <span className="font-semibold">Description:</span>{" "}
