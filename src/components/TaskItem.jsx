@@ -18,7 +18,7 @@ export default function TaskItem({
   }
 
   return (
-    <div className="bg-[var(--color-surface)] p-4 rounded shadow space-y-3">
+    <div className="bg-[var(--color-surface)] p-4 rounded border border-[var(--color-border)] shadow-sm space-y-3">
       <div className="flex justify-between items-center gap-3">
         {/* Task title */}
         <p className="font-medium">{task.title}</p>

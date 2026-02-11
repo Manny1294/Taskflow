@@ -27,14 +27,14 @@ export default function TaskEditForm({ task, onSave }) {
     <form onSubmit={handleSubmit} className="space-y-3">
       <input
         type="text"
-        className="w-full border p-2 rounded bg-[var(--color-surface)] text-[var(--color-text)]"
+        className="w-full border border-[var(--color-border)] p-2 rounded bg-[var(--color-surface)] text-[var(--color-text)]"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         maxLength={100}
       />
 
       <textarea
-        className="w-full border p-2 rounded bg-[var(--color-surface)] text-[var(--color-text)]"
+        className="w-full border border-[var(--color-border)] p-2 rounded bg-[var(--color-surface)] text-[var(--color-text)]"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         maxLength={500}
@@ -45,7 +45,7 @@ export default function TaskEditForm({ task, onSave }) {
         <label className="text-sm">
           Priority
           <select
-            className="mt-1 w-full border p-2 rounded bg-[var(--color-surface)] text-[var(--color-text)]"
+            className="mt-1 w-full border border-[var(--color-border)] p-2 rounded bg-[var(--color-surface)] text-[var(--color-text)]"
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
           >
@@ -58,7 +58,7 @@ export default function TaskEditForm({ task, onSave }) {
         <label className="text-sm">
           Status
           <select
-            className="mt-1 w-full border p-2 rounded bg-[var(--color-surface)] text-[var(--color-text)]"
+            className="mt-1 w-full border border-[var(--color-border)] p-2 rounded bg-[var(--color-surface)] text-[var(--color-text)]"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
           >
