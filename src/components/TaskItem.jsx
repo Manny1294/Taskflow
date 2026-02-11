@@ -26,7 +26,7 @@ export default function TaskItem({
         <div className="flex items-center gap-2">
           <button
             onClick={() => toggleComplete(task.id)}
-            className="bg-green-600 text-white p-2 rounded"
+            className="relative group bg-green-600 text-white p-2 rounded hover:bg-green-700"
             aria-label={task.status === "done" ? "Mark todo" : "Mark done"}
             title={task.status === "done" ? "Mark todo" : "Mark done"}
           >
@@ -58,11 +58,17 @@ export default function TaskItem({
                 <path d="M20 6L9 17l-5-5" />
               </svg>
             )}
+            <span className="sr-only">
+              {task.status === "done" ? "Mark todo" : "Mark done"}
+            </span>
+            <span className="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-black px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
+              {task.status === "done" ? "Mark todo" : "Mark done"}
+            </span>
           </button>
 
           <button
             onClick={() => setIsEditing((prev) => !prev)}
-            className="bg-blue-600 text-white p-2 rounded"
+            className="relative group bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
             aria-label={isEditing ? "Cancel edit" : "Edit task"}
             title={isEditing ? "Cancel edit" : "Edit task"}
           >
@@ -95,12 +101,16 @@ export default function TaskItem({
                 <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
               </svg>
             )}
+            <span className="sr-only">{isEditing ? "Cancel" : "Edit"}</span>
+            <span className="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-black px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
+              {isEditing ? "Cancel" : "Edit"}
+            </span>
           </button>
 
           {/* Delete button removes the task by id */}
           <button
             onClick={() => deleteTask(task.id)}
-            className="bg-red-500 text-white p-2 rounded"
+            className="relative group bg-red-500 text-white p-2 rounded hover:bg-red-600"
             aria-label="Delete task"
             title="Delete task"
           >
@@ -119,6 +129,10 @@ export default function TaskItem({
               <path d="M10 11v6" />
               <path d="M14 11v6" />
             </svg>
+            <span className="sr-only">Delete</span>
+            <span className="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-black px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
+              Delete
+            </span>
           </button>
         </div>
       </div>
