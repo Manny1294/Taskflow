@@ -1,10 +1,14 @@
 import { useState } from "react";
+import useLocalStorage from "./hooks/useLocalStorage";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
+import FilterButtons from "./components/FilterButtons";
 
 function App() {
-  // App state: list of tasks
-  const [tasks, setTasks] = useState([]);
+  // Keep tasks in localStorage so they persist after refresh/browser close
+  const [tasks, setTasks] = useLocalStorage("taskflow_tasks", []);
+  // Track the active filter for the list
+  const [filter, setFilter] = useState("all");
 
   // Add one new task
   function addTask(formData) {
@@ -65,6 +69,12 @@ function App() {
     setTasks(updated);
   }
 
+  // Build the visible list based on the selected filter
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "all") return true;
+    return task.status === filter;
+  });
+
   return (
     <div className="min-h-screen bg-[var(--color-bg)] p-6 text-[var(--color-text)]">
       {/* Header */}
@@ -75,8 +85,11 @@ function App() {
       {/* Main content */}
       <main className="max-w-2xl mx-auto">
         <TaskForm addTask={addTask} />
+        <FilterButtons filter={filter} setFilter={setFilter} />
         <TaskList
-          tasks={tasks}
+          tasks={filteredTasks}
+          totalTasks={tasks.length}
+          currentFilter={filter}
           deleteTask={deleteTask}
           updateTask={updateTask}
           toggleComplete={toggleComplete}
