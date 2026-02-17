@@ -1,99 +1,35 @@
-import { useState } from "react";
-import useLocalStorage from "./hooks/useLocalStorage";
-import TaskForm from "./components/TaskForm";
-import TaskList from "./components/TaskList";
-import FilterButtons from "./components/FilterButtons";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Navbar from "./components/NavBar";
+import AllTasks from "./pages/AllTasks";
+import NotFound from "./pages/NotFound";
+import { getCurrentSession } from "./api/client";
+import checkAdmin from "./utils/checkAdmin";
+import ExportPage from "./pages/ExportPage";
 
 function App() {
-  // Keep tasks in localStorage so they persist after refresh/browser close
-  const [tasks, setTasks] = useLocalStorage("taskflow_tasks", []);
-  // Track the active filter for the list
-  const [filter, setFilter] = useState("all");
-
-  // Add one new task
-  function addTask(formData) {
-    const now = Date.now();
-
-    const newTask = {
-      id: crypto.randomUUID(),
-      title: formData.title,
-      description: formData.description || "",
-      priority: formData.priority || "medium",
-      status: formData.status || "todo",
-      createdAt: now,
-      updatedAt: now,
-    };
-
-    // Create a new array with the new task added
-    setTasks([...tasks, newTask]);
-  }
-
-  // Delete a task by its id
-  function deleteTask(id) {
-    // Keep only tasks that do NOT match the id
-    const updated = tasks.filter((task) => task.id !== id);
-    setTasks(updated);
-  }
-
-  // Update a task by its id
-  function updateTask(id, updates) {
-    const now = Date.now();
-
-    const updated = tasks.map((task) => {
-      if (task.id !== id) return task;
-
-      return {
-        ...task,
-        ...updates,
-        updatedAt: now,
-      };
-    });
-
-    setTasks(updated);
-  }
-
-  // Toggle a task between done and todo
-  function toggleComplete(id) {
-    const updated = tasks.map((task) => {
-      if (task.id !== id) return task;
-
-      const nextStatus = task.status === "done" ? "todo" : "done";
-
-      return {
-        ...task,
-        status: nextStatus,
-        updatedAt: Date.now(),
-      };
-    });
-
-    setTasks(updated);
-  }
-
-  // Build the visible list based on the selected filter
-  const filteredTasks = tasks.filter((task) => {
-    if (filter === "all") return true;
-    return task.status === filter;
-  });
+  const session = getCurrentSession();
+  const isAdmin = checkAdmin(session.role);
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] p-6 text-[var(--color-text)]">
-      {/* Header */}
-      <header className="mb-6">
-        <h1 className="text-3xl font-bold text-center">TaskFlow</h1>
-      </header>
+      <main className="mx-auto max-w-3xl">
+        <Navbar isAdmin={isAdmin} />
 
-      {/* Main content */}
-      <main className="max-w-2xl mx-auto">
-        <TaskForm addTask={addTask} />
-        <FilterButtons filter={filter} setFilter={setFilter} />
-        <TaskList
-          tasks={filteredTasks}
-          totalTasks={tasks.length}
-          currentFilter={filter}
-          deleteTask={deleteTask}
-          updateTask={updateTask}
-          toggleComplete={toggleComplete}
-        />
+        {/* Small session summary helps interviewers see current tenant/user quickly. */}
+        <p className="mb-6 text-sm text-[var(--color-text-secondary)]">
+          Tenant: {session.tenantId} | User: {session.userId} | Role:{" "}
+          {session.role}
+        </p>
+
+        <Routes>
+          <Route path="/" element={<Navigate to="/tasks" replace />} />
+          <Route path="/tasks" element={<AllTasks />} />
+          <Route
+            path="/export"
+            element={isAdmin ? <ExportPage /> : <Navigate to="/tasks" replace />}
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
     </div>
   );
