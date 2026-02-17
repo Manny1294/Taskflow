@@ -1,16 +1,69 @@
-# React + Vite
+# TaskFlow Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Minimal React + Vite frontend for the TaskFlow interview project.
 
-Currently, two official plugins are available:
+This UI connects to the backend API and provides:
+- Task Page (`/tasks`) to list tasks, create a task, and mark task as completed
+- Admin Export Page (`/export`) to trigger export, check job status, and download CSV
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+- React
+- Vite
+- React Router
 
-## React Compiler
+## Prerequisites
+- Node.js 18+
+- TaskFlow backend running
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Setup
+1. Install dependencies:
+```bash
+npm install
+```
 
-## Expanding the ESLint configuration
+2. Create local env file from template:
+```bash
+cp .env.example .env
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+3. (Optional) update `.env` values for your local setup.
+
+4. Start frontend:
+```bash
+npm run dev
+```
+
+## Environment Variables
+See `.env.example`:
+- `VITE_API_BASE_URL` - backend API base URL
+- `VITE_TENANT_ID` - active tenant id for request headers
+- `VITE_USER_ID` - active user id for request headers
+- `VITE_USER_ROLE` - UI role hint (`admin` or `member`)
+
+## Run With Backend
+1. Start backend (`taskflow-backend`):
+```bash
+npm run dev
+```
+
+2. Start frontend (this repo):
+```bash
+npm run dev
+```
+
+3. Open:
+```text
+http://localhost:5173/tasks
+```
+
+## Tenant/User Switching
+Update `.env`, then restart frontend:
+- `VITE_TENANT_ID`
+- `VITE_USER_ID`
+- `VITE_USER_ROLE`
+
+## Scripts
+- `npm run dev` - start Vite dev server
+- `npm run build` - production build
+- `npm run preview` - preview production build
+- `npm run lint` - run ESLint
